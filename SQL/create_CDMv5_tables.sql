@@ -1,4 +1,4 @@
-/*********************************************************************************
+/* SQLINES DEMO *** **************************************************************
 # Copyright 2016 Observational Health Data Sciences and Informatics
 #
 # 
@@ -15,7 +15,7 @@
 # limitations under the License.
 ********************************************************************************/
 
-/************************
+/* SQLINES DEMO *** *****
 
  ####### #     # ####### ######      #####  ######  #     #           ####### 
  #     # ##   ## #     # #     #    #     # #     # ##   ##    #    # #       
@@ -36,14 +36,14 @@ author:  Patrick Ryan
 *************************/
 
 
-/************************
+/* SQLINES DEMO *** *****
 
 Standardized vocabulary
 
 ************************/
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.concept (
+CREATE TABLE synpuf5.concept (
   concept_id			INTEGER			NOT NULL,
   concept_name			VARCHAR(255)	NOT NULL,
   domain_id				VARCHAR(20)		NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.concept (
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.vocabulary (
+CREATE TABLE synpuf5.vocabulary (
   vocabulary_id			VARCHAR(20)		NOT NULL,
   vocabulary_name		VARCHAR(255)	NOT NULL,
   vocabulary_reference	VARCHAR(255)	NULL,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.vocabulary (
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.domain (
+CREATE TABLE synpuf5.domain (
   domain_id			VARCHAR(20)		NOT NULL,
   domain_name		VARCHAR(255)	NOT NULL,
   domain_concept_id	INTEGER			NOT NULL
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.domain (
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.concept_class (
+CREATE TABLE synpuf5.concept_class (
   concept_class_id			VARCHAR(20)		NOT NULL,
   concept_class_name		VARCHAR(255)	NOT NULL,
   concept_class_concept_id	INTEGER			NOT NULL
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.concept_class (
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.concept_relationship (
+CREATE TABLE synpuf5.concept_relationship (
   concept_id_1			INTEGER			NOT NULL,
   concept_id_2			INTEGER			NOT NULL,
   relationship_id		VARCHAR(20)		NOT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.concept_relationship (
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.relationship (
+CREATE TABLE synpuf5.relationship (
   relationship_id			VARCHAR(20)		NOT NULL,
   relationship_name			VARCHAR(255)	NOT NULL,
   is_hierarchical			VARCHAR(1)		NOT NULL,
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.relationship (
 ;
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.concept_synonym (
+CREATE TABLE synpuf5.concept_synonym (
   concept_id			INTEGER			NOT NULL,
   concept_synonym_name	VARCHAR(1000)	NOT NULL,
   language_concept_id	INTEGER			NOT NULL
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.concept_synonym (
 ;
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.concept_ancestor (
+CREATE TABLE synpuf5.concept_ancestor (
   ancestor_concept_id		INTEGER		NOT NULL,
   descendant_concept_id		INTEGER		NOT NULL,
   min_levels_of_separation	INTEGER		NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.concept_ancestor (
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.source_to_concept_map (
+CREATE TABLE synpuf5.source_to_concept_map (
   source_code				VARCHAR(50)		NOT NULL,
   source_concept_id			INTEGER			NOT NULL,
   source_vocabulary_id		VARCHAR(20)		NOT NULL,
@@ -145,14 +145,14 @@ CREATE TABLE IF NOT EXISTS synpuf5.source_to_concept_map (
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.drug_strength (
+CREATE TABLE synpuf5.drug_strength (
   drug_concept_id				INTEGER		NOT NULL,
   ingredient_concept_id			INTEGER		NOT NULL,
-  amount_value					NUMERIC		NULL,
+  amount_value					NUMERIC(10,0)		NULL,
   amount_unit_concept_id		INTEGER		NULL,
-  numerator_value				NUMERIC		NULL,
+  numerator_value				NUMERIC(10,0)		NULL,
   numerator_unit_concept_id		INTEGER		NULL,
-  denominator_value				NUMERIC		NULL,
+  denominator_value				NUMERIC(10,0)		NULL,
   denominator_unit_concept_id	INTEGER		NULL,
   box_size                    INTEGER        NULL,
   valid_start_date				DATE		NOT NULL,
@@ -163,41 +163,41 @@ CREATE TABLE IF NOT EXISTS synpuf5.drug_strength (
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.cohort_definition (
+CREATE TABLE synpuf5.cohort_definition (
   cohort_definition_id				INTEGER			NOT NULL,
   cohort_definition_name			VARCHAR(255)	NOT NULL,
-  cohort_definition_description		TEXT	NULL,
+  cohort_definition_description		VARCHAR(max)	NULL,
   definition_type_concept_id		INTEGER			NOT NULL,
-  cohort_definition_syntax			TEXT	NULL,
+  cohort_definition_syntax			VARCHAR(max)	NULL,
   subject_concept_id				INTEGER			NOT NULL,
   cohort_initiation_date			DATE			NULL
 )
 ;
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.attribute_definition (
+CREATE TABLE synpuf5.attribute_definition (
   attribute_definition_id		INTEGER			NOT NULL,
   attribute_name				VARCHAR(255)	NOT NULL,
-  attribute_description			TEXT	NULL,
+  attribute_description			VARCHAR(max)	NULL,
   attribute_type_concept_id		INTEGER			NOT NULL,
-  attribute_syntax				TEXT	NULL
+  attribute_syntax				VARCHAR(max)	NULL
 )
 ;
 
 
-/**************************
+/* SQLINES DEMO *** *******
 
 Standardized meta-data
 
 ***************************/
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.cdm_source
+CREATE TABLE synpuf5.cdm_source
     (
      cdm_source_name					VARCHAR(255)	NOT NULL,
 	 cdm_source_abbreviation			VARCHAR(25)		NULL,
 	 cdm_holder							VARCHAR(255)	NULL,
-	 source_description					TEXT	NULL,
+	 source_description					VARCHAR(max)	NULL,
 	 source_documentation_reference		VARCHAR(255)	NULL,
 	 cdm_etl_reference					VARCHAR(255)	NULL,
 	 source_release_date				DATE			NULL,
@@ -213,14 +213,14 @@ CREATE TABLE IF NOT EXISTS synpuf5.cdm_source
 
 
 
-/************************
+/* SQLINES DEMO *** *****
 
 Standardized clinical data
 
 ************************/
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.person
+CREATE TABLE synpuf5.person
     (
      person_id						INTEGER		NOT NULL ,
      gender_concept_id				INTEGER		NOT NULL ,
@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.person
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.observation_period
+CREATE TABLE synpuf5.observation_period
     (
      observation_period_id				INTEGER		NOT NULL ,
      person_id							INTEGER		NOT NULL ,
@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.observation_period
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.specimen
+CREATE TABLE synpuf5.specimen
     (
      specimen_id						INTEGER			NOT NULL ,
 	 person_id							INTEGER			NOT NULL ,
@@ -267,7 +267,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.specimen
 	 specimen_type_concept_id			INTEGER			NOT NULL ,
 	 specimen_date						DATE			NOT NULL ,
 	 specimen_time						VARCHAR(10)		NULL ,
-	 quantity							NUMERIC			NULL ,
+	 quantity							NUMERIC(10,0)			NULL ,
 	 unit_concept_id					INTEGER			NULL ,
 	 anatomic_site_concept_id			INTEGER			NULL ,
 	 disease_status_concept_id			INTEGER			NULL ,
@@ -281,7 +281,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.specimen
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.death
+CREATE TABLE synpuf5.death
     (
      person_id							INTEGER			NOT NULL ,
      death_date							DATE			NOT NULL ,
@@ -294,7 +294,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.death
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.visit_occurrence
+CREATE TABLE synpuf5.visit_occurrence
     (
      visit_occurrence_id			BIGINT			NOT NULL ,
      person_id						INTEGER			NOT NULL ,
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.visit_occurrence
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.procedure_occurrence
+CREATE TABLE synpuf5.procedure_occurrence
     (
      procedure_occurrence_id		INTEGER			NOT NULL ,
      person_id						INTEGER			NOT NULL ,
@@ -332,7 +332,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.procedure_occurrence
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.drug_exposure
+CREATE TABLE synpuf5.drug_exposure
     (
      drug_exposure_id				INTEGER			NOT NULL ,
      person_id						INTEGER			NOT NULL ,
@@ -342,11 +342,11 @@ CREATE TABLE IF NOT EXISTS synpuf5.drug_exposure
      drug_type_concept_id			INTEGER			NOT NULL ,
      stop_reason					VARCHAR(20)		NULL ,
      refills						INTEGER			NULL ,
-     quantity						NUMERIC			NULL ,
+     quantity						NUMERIC(10,0)			NULL ,
      days_supply					INTEGER			NULL ,
-     sig							TEXT	NULL ,
+     sig							VARCHAR(max)	NULL ,
 	 route_concept_id				INTEGER			NULL ,
-	 effective_drug_dose			NUMERIC			NULL ,
+	 effective_drug_dose			NUMERIC(10,0)			NULL ,
 	 dose_unit_concept_id			INTEGER			NULL ,
 	 lot_number						VARCHAR(50)		NULL ,
      provider_id					INTEGER			NULL ,
@@ -359,7 +359,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.drug_exposure
 ;
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.device_exposure
+CREATE TABLE synpuf5.device_exposure
     (
      device_exposure_id				INTEGER			NOT NULL ,
      person_id						INTEGER			NOT NULL ,
@@ -377,7 +377,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.device_exposure
 ;
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.condition_occurrence
+CREATE TABLE synpuf5.condition_occurrence
     (
      condition_occurrence_id		INTEGER			NOT NULL ,
      person_id						INTEGER			NOT NULL ,
@@ -395,7 +395,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.condition_occurrence
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.measurement
+CREATE TABLE synpuf5.measurement
     (
      measurement_id					INTEGER			NOT NULL ,
      person_id						INTEGER			NOT NULL ,
@@ -404,11 +404,11 @@ CREATE TABLE IF NOT EXISTS synpuf5.measurement
      measurement_time				VARCHAR(10)		NULL ,
 	 measurement_type_concept_id	INTEGER			NOT NULL ,
 	 operator_concept_id			INTEGER			NULL ,
-     value_as_number				NUMERIC			NULL ,
+     value_as_number				NUMERIC(10,0)			NULL ,
      value_as_concept_id			INTEGER			NULL ,
      unit_concept_id				INTEGER			NULL ,
-     range_low						NUMERIC			NULL ,
-     range_high						NUMERIC			NULL ,
+     range_low						NUMERIC(10,0)			NULL ,
+     range_high						NUMERIC(10,0)			NULL ,
      provider_id					INTEGER			NULL ,
      visit_occurrence_id			BIGINT			NULL ,
      measurement_source_value		VARCHAR(50)		NULL ,
@@ -420,14 +420,14 @@ CREATE TABLE IF NOT EXISTS synpuf5.measurement
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.note
+CREATE TABLE synpuf5.note
     (
      note_id						INTEGER			NOT NULL ,
      person_id						INTEGER			NOT NULL ,
      note_date						DATE			NOT NULL ,
 	 note_time						VARCHAR(10)		NULL ,
 	 note_type_concept_id			INTEGER			NOT NULL ,
-	 note_text						TEXT	NOT NULL ,
+	 note_text						VARCHAR(max)	NOT NULL ,
      provider_id					INTEGER			NULL ,
 	 visit_occurrence_id			BIGINT			NULL ,
 	 note_source_value				VARCHAR(50)		NULL
@@ -436,7 +436,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.note
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.observation
+CREATE TABLE synpuf5.observation
     (
      observation_id					INTEGER			NOT NULL ,
      person_id						INTEGER			NOT NULL ,
@@ -444,7 +444,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.observation
      observation_date				DATE			NOT NULL ,
      observation_time				VARCHAR(10)		NULL ,
      observation_type_concept_id	INTEGER			NOT NULL ,
-	 value_as_number				NUMERIC			NULL ,
+	 value_as_number				NUMERIC(10,0)			NULL ,
      value_as_string				VARCHAR(60)		NULL ,
      value_as_concept_id			INTEGER			NULL ,
 	 qualifier_concept_id			INTEGER			NULL ,
@@ -460,7 +460,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.observation
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.fact_relationship
+CREATE TABLE synpuf5.fact_relationship
     (
      domain_concept_id_1			INTEGER			NOT NULL ,
 	 fact_id_1						INTEGER			NOT NULL ,
@@ -473,7 +473,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.fact_relationship
 
 
 
-/************************
+/* SQLINES DEMO *** *****
 
 Standardized health system data
 
@@ -481,7 +481,7 @@ Standardized health system data
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.location
+CREATE TABLE synpuf5.location
     (
      location_id					INTEGER			NOT NULL ,
      address_1						VARCHAR(50)		NULL ,
@@ -496,7 +496,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.location
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.care_site
+CREATE TABLE synpuf5.care_site
     (
      care_site_id						INTEGER			NOT NULL ,
 	 care_site_name						VARCHAR(255)	NULL ,
@@ -509,7 +509,7 @@ CREATE TABLE IF NOT EXISTS synpuf5.care_site
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.provider
+CREATE TABLE synpuf5.provider
     (
      provider_id					INTEGER			NOT NULL ,
 	 provider_name					VARCHAR(255)	NULL ,
@@ -530,14 +530,14 @@ CREATE TABLE IF NOT EXISTS synpuf5.provider
 
 
 
-/************************
+/* SQLINES DEMO *** *****
 
 Standardized health economics
 
 ************************/
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.payer_plan_period
+CREATE TABLE synpuf5.payer_plan_period
     (
      payer_plan_period_id			INTEGER			NOT NULL ,
      person_id						INTEGER			NOT NULL ,
@@ -551,36 +551,36 @@ CREATE TABLE IF NOT EXISTS synpuf5.payer_plan_period
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.visit_cost
+CREATE TABLE synpuf5.visit_cost
     (
      visit_cost_id					INTEGER			NOT NULL ,
      visit_occurrence_id			BIGINT			NOT NULL ,
 	 currency_concept_id			INTEGER			NULL ,
-     paid_copay						NUMERIC			NULL ,
-     paid_coinsurance				NUMERIC			NULL ,
-     paid_toward_deductible			NUMERIC			NULL ,
-     paid_by_payer					NUMERIC			NULL ,
-     paid_by_coordination_benefits	NUMERIC			NULL ,
-     total_out_of_pocket			NUMERIC			NULL ,
-     total_paid						NUMERIC			NULL ,
+     paid_copay						NUMERIC(10,0)			NULL ,
+     paid_coinsurance				NUMERIC(10,0)			NULL ,
+     paid_toward_deductible			NUMERIC(10,0)			NULL ,
+     paid_by_payer					NUMERIC(10,0)			NULL ,
+     paid_by_coordination_benefits	NUMERIC(10,0)			NULL ,
+     total_out_of_pocket			NUMERIC(10,0)			NULL ,
+     total_paid						NUMERIC(10,0)			NULL ,
      payer_plan_period_id			INTEGER			NULL
     )
 ;
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.procedure_cost
+CREATE TABLE synpuf5.procedure_cost
     (
      procedure_cost_id				INTEGER			NOT NULL ,
      procedure_occurrence_id		INTEGER			NOT NULL ,
      currency_concept_id			INTEGER			NULL ,
-     paid_copay						NUMERIC			NULL ,
-     paid_coinsurance				NUMERIC			NULL ,
-     paid_toward_deductible			NUMERIC			NULL ,
-     paid_by_payer					NUMERIC			NULL ,
-     paid_by_coordination_benefits	NUMERIC			NULL ,
-     total_out_of_pocket			NUMERIC			NULL ,
-     total_paid						NUMERIC			NULL ,
+     paid_copay						NUMERIC(10,0)			NULL ,
+     paid_coinsurance				NUMERIC(10,0)			NULL ,
+     paid_toward_deductible			NUMERIC(10,0)			NULL ,
+     paid_by_payer					NUMERIC(10,0)			NULL ,
+     paid_by_coordination_benefits	NUMERIC(10,0)			NULL ,
+     total_out_of_pocket			NUMERIC(10,0)			NULL ,
+     total_paid						NUMERIC(10,0)			NULL ,
 	 revenue_code_concept_id		INTEGER			NULL ,
      payer_plan_period_id			INTEGER			NULL ,
 	 revenue_code_source_value		VARCHAR(50)		NULL
@@ -589,21 +589,21 @@ CREATE TABLE IF NOT EXISTS synpuf5.procedure_cost
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.drug_cost
+CREATE TABLE synpuf5.drug_cost
     (
      drug_cost_id					INTEGER			NOT NULL ,
      drug_exposure_id				INTEGER			NOT NULL ,
      currency_concept_id			INTEGER			NULL ,
-     paid_copay						NUMERIC			NULL ,
-     paid_coinsurance				NUMERIC			NULL ,
-     paid_toward_deductible			NUMERIC			NULL ,
-     paid_by_payer					NUMERIC			NULL ,
-     paid_by_coordination_benefits	NUMERIC			NULL ,
-     total_out_of_pocket			NUMERIC			NULL ,
-     total_paid						NUMERIC			NULL ,
-     ingredient_cost				NUMERIC			NULL ,
-     dispensing_fee					NUMERIC			NULL ,
-     average_wholesale_price		NUMERIC			NULL ,
+     paid_copay						NUMERIC(10,0)			NULL ,
+     paid_coinsurance				NUMERIC(10,0)			NULL ,
+     paid_toward_deductible			NUMERIC(10,0)			NULL ,
+     paid_by_payer					NUMERIC(10,0)			NULL ,
+     paid_by_coordination_benefits	NUMERIC(10,0)			NULL ,
+     total_out_of_pocket			NUMERIC(10,0)			NULL ,
+     total_paid						NUMERIC(10,0)			NULL ,
+     ingredient_cost				NUMERIC(10,0)			NULL ,
+     dispensing_fee					NUMERIC(10,0)			NULL ,
+     average_wholesale_price		NUMERIC(10,0)			NULL ,
      payer_plan_period_id			INTEGER			NULL
     )
 ;
@@ -612,18 +612,18 @@ CREATE TABLE IF NOT EXISTS synpuf5.drug_cost
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.device_cost
+CREATE TABLE synpuf5.device_cost
     (
      device_cost_id					INTEGER			NOT NULL ,
      device_exposure_id				INTEGER			NOT NULL ,
      currency_concept_id			INTEGER			NULL ,
-     paid_copay						NUMERIC			NULL ,
-     paid_coinsurance				NUMERIC			NULL ,
-     paid_toward_deductible			NUMERIC			NULL ,
-     paid_by_payer					NUMERIC			NULL ,
-     paid_by_coordination_benefits	NUMERIC			NULL ,
-     total_out_of_pocket			NUMERIC			NULL ,
-     total_paid						NUMERIC			NULL ,
+     paid_copay						NUMERIC(10,0)			NULL ,
+     paid_coinsurance				NUMERIC(10,0)			NULL ,
+     paid_toward_deductible			NUMERIC(10,0)			NULL ,
+     paid_by_payer					NUMERIC(10,0)			NULL ,
+     paid_by_coordination_benefits	NUMERIC(10,0)			NULL ,
+     total_out_of_pocket			NUMERIC(10,0)			NULL ,
+     total_paid						NUMERIC(10,0)			NULL ,
      payer_plan_period_id			INTEGER			NULL
     )
 ;
@@ -631,13 +631,13 @@ CREATE TABLE IF NOT EXISTS synpuf5.device_cost
 
 
 
-/************************
+/* SQLINES DEMO *** *****
 
 Standardized derived elements
 
 ************************/
 
-CREATE TABLE IF NOT EXISTS synpuf5.cohort
+CREATE TABLE synpuf5.cohort
     (
 	 cohort_definition_id			INTEGER			NOT NULL ,
      subject_id						INTEGER			NOT NULL ,
@@ -647,14 +647,14 @@ CREATE TABLE IF NOT EXISTS synpuf5.cohort
 ;
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.cohort_attribute
+CREATE TABLE synpuf5.cohort_attribute
     (
 	 cohort_definition_id			INTEGER			NOT NULL ,
      cohort_start_date				DATE			NOT NULL ,
      cohort_end_date				DATE			NOT NULL ,
      subject_id						INTEGER			NOT NULL ,
      attribute_definition_id		INTEGER			NOT NULL ,
-	 value_as_number				NUMERIC			NULL ,
+	 value_as_number				NUMERIC(10,0)			NULL ,
 	 value_as_concept_id			INTEGER			NULL
     )
 ;
@@ -662,9 +662,9 @@ CREATE TABLE IF NOT EXISTS synpuf5.cohort_attribute
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.drug_era
+CREATE TABLE synpuf5.drug_era
     (
-     drug_era_id					INTEGER			NOT NULL ,
+     drug_era_id					INTEGER			identity(1,1) NOT NULL ,
      person_id						INTEGER			NOT NULL ,
      drug_concept_id				INTEGER			NOT NULL ,
      drug_era_start_date			DATE			NOT NULL ,
@@ -674,17 +674,17 @@ CREATE TABLE IF NOT EXISTS synpuf5.drug_era
     )
 ;
 
-create sequence synpuf5.drug_era_sequence;
-alter table synpuf5.drug_era alter drug_era_id set default nextval('synpuf5.drug_era_sequence');
+--create sequence synpuf5.drug_era_sequence;
+--alter table synpuf5.drug_era alter drug_era_id set @default dbo.nextval('synpuf5.drug_era_sequence');
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.dose_era
+CREATE TABLE synpuf5.dose_era
     (
      dose_era_id					INTEGER			NOT NULL ,
      person_id						INTEGER			NOT NULL ,
      drug_concept_id				INTEGER			NOT NULL ,
 	 unit_concept_id				INTEGER			NOT NULL ,
-	 dose_value						NUMERIC			NOT NULL ,
+	 dose_value						NUMERIC(10,0)			NOT NULL ,
      dose_era_start_date			DATE			NOT NULL ,
      dose_era_end_date				DATE			NOT NULL
     )
@@ -693,9 +693,9 @@ CREATE TABLE IF NOT EXISTS synpuf5.dose_era
 
 
 
-CREATE TABLE IF NOT EXISTS synpuf5.condition_era
+CREATE TABLE synpuf5.condition_era
     (
-     condition_era_id				INTEGER			NOT NULL ,
+     condition_era_id				INTEGER			identity(1,1) NOT NULL ,
      person_id						INTEGER			NOT NULL ,
      condition_concept_id			INTEGER			NOT NULL ,
      condition_era_start_date		DATE			NOT NULL ,
@@ -704,5 +704,5 @@ CREATE TABLE IF NOT EXISTS synpuf5.condition_era
     )
 ;
 
-create sequence synpuf5.condition_era_sequence;
-alter table synpuf5.condition_era alter condition_era_id set default nextval('synpuf5.condition_era_sequence');
+--create sequence synpuf5.condition_era_sequence;
+--alter table synpuf5.condition_era alter condition_era_id set @default dbo.nextval('synpuf5.condition_era_sequence');
